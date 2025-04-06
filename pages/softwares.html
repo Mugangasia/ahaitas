@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ahatis - Software Solutions</title>
+    <style>
+        :root {
+            --primary: #8c2332; /* Burgundy color from logo */
+            --primary-dark: #701c28;
+            --light: #f8f9fa;
+            --dark: #262626;
+            --text: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header and Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+        }
+
+        .logo {
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-colored {
+            display: block;
+        }
+
+        .logo-white {
+            display: none;
+        }
+
+        header.scrolled .logo-colored {
+            display: none;
+        }
+
+        header.scrolled .logo-white {
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        header.scrolled .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        header.scrolled .nav-links a::after {
+            background-color: white;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .book-meeting {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .book-meeting:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        header.scrolled .book-meeting {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        header.scrolled .book-meeting:hover {
+            background-color: var(--light);
+        }
+
+        /* Page Banner */
+        .page-banner {
+            height: 50vh;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 70px;
+            position: relative;
+            background-image: url('/api/placeholder/1600/800');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(140, 35, 50, 0.85) 0%, rgba(140, 35, 50, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .page-title {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .page-title h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Software Content */
+        .software-content {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .software-intro {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .software-intro p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Software Solutions */
+        .software-solutions {
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+
+        .solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .solution:nth-child(even) {
+            direction: rtl;
+        }
+
+        .solution:nth-child(even) .solution-content {
+            direction: ltr;
+        }
+
+        .solution-image {
+            height: 400px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .solution-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            box-shadow: var(--shadow);
+        }
+
+        .solution-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .solution-content h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .solution-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            margin: 1.5rem 0;
+        }
+
+        .testimonial-author {
+            font-style: normal;
+            font-weight: 600;
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        .solution-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .solution-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .solution-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .solution-btn.outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .solution-btn.outline:hover {
+            background-color: rgba(140, 35, 50, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            background-color: var(--dark);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .solution {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .solution:nth-child(even) {
+                direction: ltr;
+            }
+
+            .solution-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .software-intro p {
+                font-size: 1.1rem;
+            }
+
+            .solution-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .solution-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="/api/placeholder/200/70" alt="ahatis logo" class="logo logo-colored">
+                <img src="/api/placeholder/200/70" alt="ahatis logo" class="logo logo-white">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#services">SERVICES</a></li>
+                <li><a href="index.html#clients">CLIENTS</a></li>
+                <li><a href="about.html">ABOUT US</a></li>
+                <li><a href="about.html#team">TEAM</a></li>
+                <li><a href="#">SOFTWARE</a></li>
+                <li><a href="index.html#contact">CONTACT US</a></li>
+            </ul>
+            <a href="#" class="book-meeting">BOOK A MEETING</a>
+        </nav>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="page-title animated">
+            <h1>Software Solutions</h1>
+        </div>
+    </section>
+
+    <!-- Software Content -->
+    <section class="software-content">
+        <div class="software-intro animated delay-1">
+            <p>Consultants are as much merchants of time as they are providers of solutions. Even if they have a practice in a certain area, they'll treat your project - and scope it - as if they're doing it for the first time. Beyond costing you money, the first time is often manual, low quality, and with no formalized process or checks.</p>
+            <p>That's ridiculous. There are some things you do over and over and you can distill your expertise into an automated process that clients can use themselves, or with far lower consulting costs.</p>
+        </div>
+
+        <div class="software-solutions">
+            <div class="solution animated delay-2">
+                <div class="solution-image">
+                    <img src="/api/placeholder/600/400" alt="Sell Thru Analytics">
+                    <div class="solution-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="solution-content">
+                    <h2>Sell Thru Analytics (STA)</h2>
+                    <p>Whether you're a manufacturer or one of its distributors, optimizing inventory and achieving effective sales and marketing programs is difficult because each organization only has a partial view of the market. With Sell Thru Analytics (STA) and its normalized data processes, both organizations work from a common understanding - allowing closer collaboration and improved decision-making.</p>
+                    <p>Designed and built with over 100 years of combined manufacturing and distribution expertise, STA generates clear insights and actions for the teams to pursue that deliver increased sales, improved management of working capital, and higher profitability.</p>
+                    
+                    <div class="testimonial">
+                        <p>"Your work has been outstanding. I want you to know how thankful I am for all that you and your team have done. You have placed our indirect business on a great path forward."</p>
+                        <div class="testimonial-author">- Finance Leader from Large International Petroleum Company</div>
+                    </div>
+                    
+                    <div class="solution-buttons">
+                        <a href="#" class="solution-btn">Contact us to discuss STA</a>
+                        <a href="#" class="solution-btn outline">More Information</a>
+                        <a href="#" class="solution-btn">Check Out Software</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution animated delay-3">
+                <div class="solution-image">
+                    <img src="/api/placeholder/600/400" alt="Highland Software">
+                    <div class="solution-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                </div>
+                <div class="solution-content">
+                    <h2>Highland</h2>
+                    <p>Data migration or transfer is intrinsic in any acquisition or divestiture. Consultants are frequently brought in to convert data between systems. Those projects differ only in source and target formats, the expertise comes in process and quality verification.</p>
+                    <p>We built a software tool that simplifies the conversion, allowing it to be done by business people without involving IT. Clients save time and money with greater confidence than a manual process could provide.</p>
+                    
+                    <div class="testimonial">
+                        <p>"Highland made our system migration seamless. The ability to handle the conversion ourselves saved us thousands in consulting fees and weeks of time."</p>
+                        <div class="testimonial-author">- Operations Director at Mid-Size Manufacturing Company</div>
+                    </div>
+                    
+                    <div class="solution-buttons">
+                        <a href="#" class="solution-btn">Contact us about Highland</a>
+                        <a href="#" class="solution-btn outline">More Information</a>
+                        <a href="#" class="solution-btn">Check Out Software</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution animated delay-4">
+                <div class="solution-image">
+                    <img src="/api/placeholder/600/400" alt="DPASS Software">
+                    <div class="solution-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                </div>
+                <div class="solution-content">
+                    <h2>DPASS</h2>
+                    <p>Does your company sell what it produces or produce what it can sell? Before a company invests in the team and technology to generate quality demand plans, use our Demand Planning as a Service self-service application to obtain the same caliber of results enjoyed by large companies.</p>
+                    <p>Give yourself the capabilities needed to ensure profitable operations and successfully achieve that delicate balance of matching demand with supply, maintain inventory at optimal levels, move perishable products quickly to market without breakage, and manage pricing pressure.</p>
+                    
+                    <div class="testimonial">
+                        <p>"DPASS transformed our inventory management from reactive to proactive. We're now successfully predicting market demand and optimizing our production accordingly."</p>
+                        <div class="testimonial-author">- Supply Chain Manager at Consumer Goods Company</div>
+                    </div>
+                    
+                    <div class="solution-buttons">
+                        <a href="#" class="solution-btn">Contact us about DPASS</a>
+                        <a href="#" class="solution-btn outline">More Information</a>
+                        <a href="#" class="solution-btn">Check Out Software</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ahatis - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Add scroll class to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animate elements when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animated').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
