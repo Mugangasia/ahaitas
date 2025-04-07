@@ -478,3 +478,20 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Footer Social Media Icons */
+footer .footer-socials {
+    margin-bottom: 1rem;
+}
+
+footer .footer-socials a {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+footer .footer-socials a:hover {
+    color: #fff;
+}
